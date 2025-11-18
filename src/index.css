@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    cursor: none !important;
+  }
+
+  body {
+    @apply bg-white text-gray-900;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Improve scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Ensure proper touch targets on mobile */
+  @media (max-width: 768px) {
+    button, a, input, select, textarea {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
+
+  /* Improve focus visibility */
+  *:focus-visible {
+    outline: 2px solid #374151;
+    outline-offset: 2px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
