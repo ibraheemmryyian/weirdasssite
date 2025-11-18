@@ -2,11 +2,11 @@ export function ContactPage() {
   return (
     <section className="min-h-screen pt-24 pb-16 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
+        <div className="text-center mb-16 animate-[fadeIn_0.8s_ease-out]">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 tracking-tight animate-[slideIn_0.6s_ease-out_0.2s_both]">
             CONTACT US
           </h1>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed animate-[fadeIn_0.8s_ease-out_0.4s_both]">
             Get in touch with our team. We're here to help with any questions or concerns.
           </p>
         </div>

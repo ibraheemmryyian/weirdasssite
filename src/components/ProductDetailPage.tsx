@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ShoppingCart, Heart, ArrowLeft, Star } from 'lucide-react';
+import { useCart } from '../contexts/CartContext';
 
 interface ProductDetailPageProps {
   product: {
@@ -12,7 +13,8 @@ interface ProductDetailPageProps {
 }
 
 export function ProductDetailPage({ product, onBack }: ProductDetailPageProps) {
-  const [selectedSize, setSelectedSize] = useState<string>('');
+  const { addToCart, addToWishlist, isInWishlist } = useCart();
+  const [selectedSize, setSelectedSize] = useState<string>('M');
   const [selectedImage, setSelectedImage] = useState(0);
 
   // Product descriptions and details
@@ -104,11 +106,11 @@ export function ProductDetailPage({ product, onBack }: ProductDetailPageProps) {
           {/* Product Images */}
           <div className="space-y-4">
             {/* Main Image */}
-            <div className="aspect-[3/4] overflow-hidden rounded-2xl bg-gray-100">
+            <div className="aspect-[3/4] overflow-hidden rounded-2xl bg-gray-100 group cursor-zoom-in">
               <img
                 src={productImages[selectedImage]}
                 alt={product.name}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105"
               />
             </div>
 
@@ -118,17 +120,21 @@ export function ProductDetailPage({ product, onBack }: ProductDetailPageProps) {
                 <button
                   key={index}
                   onClick={() => setSelectedImage(index)}
-                  className={`aspect-square overflow-hidden rounded-lg border-2 transition-all duration-300 ${
+                  className={`aspect-square overflow-hidden rounded-lg border-2 transition-all duration-300 ease-out
+                           transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-gray-900/20 ${
                     selectedImage === index
-                      ? 'border-gray-900 shadow-lg'
-                      : 'border-gray-200 hover:border-gray-400'
+                      ? 'border-gray-900 shadow-lg ring-2 ring-gray-900/20'
+                      : 'border-gray-200 hover:border-gray-400 hover:shadow-md'
                   }`}
                 >
                   <img
                     src={image}
                     alt={`${product.name} view ${index + 1}`}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-all duration-300 ease-out hover:scale-110"
                   />
+                  {selectedImage === index && (
+                    <div className="absolute inset-0 bg-gray-900/10 rounded-lg"></div>
+                  )}
                 </button>
               ))}
             </div>
@@ -214,19 +220,29 @@ export function ProductDetailPage({ product, onBack }: ProductDetailPageProps) {
 
             {/* Add to Cart */}
             <div className="space-y-4">
-              <button className="w-full py-4 px-6 rounded-xl bg-gray-900 text-white font-semibold text-lg
-                               flex items-center justify-center gap-3 transform transition-all duration-300
-                               hover:scale-105 hover:shadow-lg active:scale-95
-                               focus:outline-none focus:ring-2 focus:ring-gray-900/20 touch-manipulation">
+              <button
+                onClick={() => addToCart(product, selectedSize)}
+                className="w-full py-4 px-6 rounded-xl bg-gray-900 text-white font-semibold text-lg
+                         flex items-center justify-center gap-3 transform transition-all duration-300
+                         hover:scale-105 hover:shadow-lg active:scale-95
+                         focus:outline-none focus:ring-2 focus:ring-gray-900/20 touch-manipulation"
+              >
                 <ShoppingCart className="w-5 h-5" />
                 <span>ADD TO CART - ${product.price}</span>
               </button>
 
-              <button className="w-full py-3 px-6 rounded-xl border-2 border-gray-300 text-gray-700 font-semibold
-                               flex items-center justify-center gap-3 transform transition-all duration-300
-                               hover:border-gray-400 hover:bg-gray-50">
-                <Heart className="w-5 h-5" />
-                <span>ADD TO WISHLIST</span>
+              <button
+                onClick={() => addToWishlist(product)}
+                className={`w-full py-3 px-6 rounded-xl border-2 font-semibold
+                         flex items-center justify-center gap-3 transform transition-all duration-300
+                         focus:outline-none focus:ring-2 focus:ring-gray-900/20 touch-manipulation ${
+                  isInWishlist(product.name)
+                    ? 'border-red-500 bg-red-50 text-red-700 hover:bg-red-100'
+                    : 'border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50'
+                }`}
+              >
+                <Heart className={`w-5 h-5 ${isInWishlist(product.name) ? 'fill-current' : ''}`} />
+                <span>{isInWishlist(product.name) ? 'IN WISHLIST' : 'ADD TO WISHLIST'}</span>
               </button>
             </div>
 

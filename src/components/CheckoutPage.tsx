@@ -70,7 +70,7 @@ export function CheckoutPage({ onPayment, onBack }: CheckoutPageProps) {
                     type="text"
                     value={shippingInfo.firstName}
                     onChange={(e) => handleShippingChange('firstName', e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900/20 focus:border-gray-900"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900/20 focus:border-gray-900 transition-all duration-200 hover:border-gray-400"
                     placeholder="John"
                   />
                 </div>
@@ -80,7 +80,7 @@ export function CheckoutPage({ onPayment, onBack }: CheckoutPageProps) {
                     type="text"
                     value={shippingInfo.lastName}
                     onChange={(e) => handleShippingChange('lastName', e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900/20 focus:border-gray-900"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900/20 focus:border-gray-900 transition-all duration-200 hover:border-gray-400"
                     placeholder="Doe"
                   />
                 </div>

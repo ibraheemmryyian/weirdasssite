@@ -1,11 +1,42 @@
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { Button3D } from './Button3D';
+import { useEffect, useState } from 'react';
 
-export function HeroSection() {
+interface HeroSectionProps {
+  onExploreCollection?: () => void;
+  onWatchLookbook?: () => void;
+}
+
+export function HeroSection({ onExploreCollection, onWatchLookbook }: HeroSectionProps) {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white px-4 sm:px-6">
-      {/* Mobile-optimized content */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full">
+      {/* Subtle parallax background elements */}
+      <div
+        className="absolute inset-0 opacity-5"
+        style={{
+          transform: `translateY(${scrollY * 0.1}px)`,
+          transition: 'transform 0.1s linear'
+        }}
+      >
+        <div className="absolute top-20 left-10 w-64 h-64 bg-gray-300 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-gray-200 rounded-full blur-3xl"></div>
+      </div>
+
+      {/* Mobile-optimized content with parallax */}
+      <div
+        className="relative z-10 max-w-7xl mx-auto w-full"
+        style={{
+          transform: `translateY(${scrollY * -0.05}px)`,
+          transition: 'transform 0.1s linear'
+        }}
+      >
         <div className="text-center">
           {/* Badge */}
           <div className="mb-4 sm:mb-6 inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full
@@ -34,12 +65,24 @@ export function HeroSection() {
           {/* CTA Buttons - Better mobile layout */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4
                         animate-[fadeIn_1s_ease-out_0.6s_both] px-4 sm:px-0">
-            <Button3D variant="primary" className="w-full sm:w-auto min-w-[200px] sm:min-w-0">
-              EXPLORE COLLECTION
-              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+            <Button3D
+              variant="primary"
+              className="w-full sm:w-auto min-w-[200px] sm:min-w-0 group"
+              onClick={onExploreCollection}
+            >
+              <span className="group-hover:translate-x-0.5 transition-transform duration-300">
+                EXPLORE COLLECTION
+              </span>
+              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-0.5 transition-transform duration-300" />
             </Button3D>
-            <Button3D variant="ghost" className="w-full sm:w-auto min-w-[200px] sm:min-w-0">
-              WATCH LOOKBOOK
+            <Button3D
+              variant="ghost"
+              className="w-full sm:w-auto min-w-[200px] sm:min-w-0 group"
+              onClick={onWatchLookbook}
+            >
+              <span className="group-hover:scale-105 transition-transform duration-300">
+                WATCH LOOKBOOK
+              </span>
             </Button3D>
           </div>
         </div>

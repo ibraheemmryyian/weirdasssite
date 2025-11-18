@@ -2,17 +2,17 @@ export function AboutPage() {
   return (
     <section className="min-h-screen pt-24 pb-16 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
+        <div className="text-center mb-16 animate-[fadeIn_0.8s_ease-out]">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 tracking-tight animate-[slideIn_0.6s_ease-out_0.2s_both]">
             ABOUT ESCAPISM
           </h1>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed animate-[fadeIn_0.8s_ease-out_0.4s_both]">
             Contemporary fashion that blends timeless elegance with modern sophistication.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
-          <div>
+          <div className="animate-[slideIn_0.8s_ease-out_0.6s_both]">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Our Philosophy</h2>
             <p className="text-gray-600 leading-relaxed mb-6">
               We believe fashion should be an expression of individuality, not a trend to follow.
@@ -24,7 +24,7 @@ export function AboutPage() {
             </p>
           </div>
 
-          <div>
+          <div className="animate-[slideIn_0.8s_ease-out_0.8s_both]">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Our Process</h2>
             <p className="text-gray-600 leading-relaxed mb-6">
               From concept to creation, we work closely with skilled artisans and use innovative techniques

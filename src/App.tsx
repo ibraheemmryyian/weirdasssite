@@ -10,6 +10,7 @@ import { ProductsPage } from './components/ProductsPage';
 import { CartPage } from './components/CartPage';
 import { ContactPage } from './components/ContactPage';
 import { ProductDetailPage } from './components/ProductDetailPage';
+import { LookbookModal } from './components/LookbookModal';
 
 type Page = 'home' | 'about' | 'products' | 'contact' | 'cart' | 'product-detail' | 'checkout' | 'payment';
 
@@ -24,6 +25,7 @@ interface Product {
 function AppContent() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isLookbookOpen, setIsLookbookOpen] = useState(false);
 
   const navigateTo = (page: Page) => {
     setCurrentPage(page);
@@ -40,12 +42,26 @@ function AppContent() {
     setSelectedProduct(null);
   };
 
+  const handleExploreCollection = () => {
+    const element = document.getElementById('collections');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const handleWatchLookbook = () => {
+    setIsLookbookOpen(true);
+  };
+
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
         return (
           <>
-            <HeroSection />
+            <HeroSection
+              onExploreCollection={handleExploreCollection}
+              onWatchLookbook={handleWatchLookbook}
+            />
             <ProductShowcase
               onViewAllProducts={() => navigateTo('products')}
               onProductClick={handleProductClick}
@@ -81,9 +97,10 @@ function AppContent() {
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
       <CustomCursor />
-      <Navigation onNavigate={navigateTo} />
+      <Navigation onNavigate={navigateTo} currentPage={currentPage} />
       {renderPage()}
       <Footer />
+      <LookbookModal isOpen={isLookbookOpen} onClose={() => setIsLookbookOpen(false)} />
     </div>
   );
 }

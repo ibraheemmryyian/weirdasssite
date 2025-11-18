@@ -28,13 +28,16 @@ export function ProductShowcase({ onViewAllProducts, onProductClick }: ProductSh
           </p>
         </div>
 
-        {/* Products Grid - Better mobile layout */}
+        {/* Products Grid - Better mobile layout with stagger */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {products.map((product, index) => (
             <div
               key={index}
-              className="animate-[fadeIn_0.6s_ease-out_both]"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="animate-[fadeIn_0.8s_ease-out_both] hover:animate-[slideIn_0.3s_ease-out]"
+              style={{
+                animationDelay: `${index * 0.15}s`,
+                animationFillMode: 'both'
+              }}
             >
               <ProductCard {...product} onProductClick={onProductClick} />
             </div>
