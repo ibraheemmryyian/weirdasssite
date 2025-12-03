@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useEffect, CSSProperties } from 'react';
 
 interface InteractiveRevealProps {
   baseImage: string;
@@ -8,43 +8,32 @@ interface InteractiveRevealProps {
 
 export function InteractiveReveal({ baseImage, revealImage, className = '' }: InteractiveRevealProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
-  const [isHovering, setIsHovering] = useState(false);
-  const rafRef = useRef<number>();
 
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    if (rafRef.current) {
-      cancelAnimationFrame(rafRef.current);
-    }
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
 
-    rafRef.current = requestAnimationFrame(() => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
       const x = ((e.clientX - rect.left) / rect.width) * 100;
       const y = ((e.clientY - rect.top) / rect.height) * 100;
-      setMousePosition({ x: Math.max(0, Math.min(100, x)), y: Math.max(0, Math.min(100, y)) });
-    });
-  }, []);
 
-  const handleMouseEnter = useCallback(() => {
-    setIsHovering(true);
-  }, []);
+      container.style.setProperty('--mouse-x', `${x}%`);
+      container.style.setProperty('--mouse-y', `${y}%`);
+    };
 
-  const handleMouseLeave = useCallback(() => {
-    setIsHovering(false);
-    setMousePosition({ x: 50, y: 50 });
-    if (rafRef.current) {
-      cancelAnimationFrame(rafRef.current);
-    }
+    container.addEventListener('mousemove', handleMouseMove);
+    return () => container.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   return (
     <div
       ref={containerRef}
-      className={`relative overflow-hidden ${className}`}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      className={`relative overflow-hidden group ${className}`}
+      style={{
+        '--mouse-x': '50%',
+        '--mouse-y': '50%',
+      } as CSSProperties}
     >
       <div className="absolute inset-0 bg-gray-900">
         <img
@@ -56,14 +45,17 @@ export function InteractiveReveal({ baseImage, revealImage, className = '' }: In
       </div>
 
       <div
-        className="absolute inset-0 will-change-[clip-path]"
+        className="absolute inset-0 will-change-[clip-path] transition-[clip-path] duration-300 ease-out group-hover:duration-0"
         style={{
-          clipPath: isHovering
-            ? `circle(180px at ${mousePosition.x}% ${mousePosition.y}%)`
-            : 'circle(0px at 50% 50%)',
-          transition: isHovering ? 'none' : 'clip-path 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+          clipPath: 'circle(180px at var(--mouse-x) var(--mouse-y))',
+          opacity: 0,
         }}
       >
+        <style>{`
+          .group:hover .absolute.will-change-\\[clip-path\\] {
+            opacity: 1 !important;
+          }
+        `}</style>
         <img
           src={revealImage}
           alt="Reveal"
@@ -72,21 +64,19 @@ export function InteractiveReveal({ baseImage, revealImage, className = '' }: In
         />
       </div>
 
-      {isHovering && (
-        <div
-          className="absolute pointer-events-none z-10 will-change-transform"
-          style={{
-            left: `${mousePosition.x}%`,
-            top: `${mousePosition.y}%`,
-            transform: 'translate(-50%, -50%)',
-            width: '360px',
-            height: '360px',
-          }}
-        >
-          <div className="absolute inset-0 rounded-full border-2 border-white/30" />
-          <div className="absolute inset-8 rounded-full border border-white/20" />
-        </div>
-      )}
+      <div
+        className="absolute pointer-events-none z-10 will-change-transform opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{
+          left: 'var(--mouse-x)',
+          top: 'var(--mouse-y)',
+          transform: 'translate(-50%, -50%)',
+          width: '360px',
+          height: '360px',
+        }}
+      >
+        <div className="absolute inset-0 rounded-full border-2 border-white/30" />
+        <div className="absolute inset-8 rounded-full border border-white/20" />
+      </div>
     </div>
   );
 }

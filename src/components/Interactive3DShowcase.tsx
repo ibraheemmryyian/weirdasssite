@@ -1,5 +1,8 @@
 import { TextRevealHero } from './TextRevealHero';
 import { InteractiveReveal } from './InteractiveReveal';
+import heroImage from '../assets/images/hero.png';
+import revealImage from '../assets/images/reveal.png';
+import detailImage from '../assets/images/detail.png';
 
 export function Interactive3DShowcase() {
   return (
@@ -8,7 +11,7 @@ export function Interactive3DShowcase() {
         <div className="text-center mb-16">
           <TextRevealHero
             text="LUXURY"
-            revealImage="https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=1200"
+            revealImage={revealImage}
             className="mb-8"
           />
           <p className="text-xl text-gray-600 font-light max-w-2xl mx-auto">
@@ -29,8 +32,8 @@ export function Interactive3DShowcase() {
 
           <div className="h-96 rounded-2xl overflow-hidden shadow-2xl">
             <InteractiveReveal
-              baseImage="https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=800&h=1000"
-              revealImage="https://images.pexels.com/photos/2294342/pexels-photo-2294342.jpeg?auto=compress&cs=tinysrgb&w=800&h=1000"
+              baseImage={heroImage}
+              revealImage={revealImage}
               className="w-full h-full"
             />
           </div>
@@ -39,22 +42,22 @@ export function Interactive3DShowcase() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
           <div className="h-64 rounded-2xl overflow-hidden shadow-xl">
             <InteractiveReveal
-              baseImage="https://images.pexels.com/photos/1055691/pexels-photo-1055691.jpeg?auto=compress&cs=tinysrgb&w=600&h=800"
-              revealImage="https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=600&h=800"
+              baseImage={detailImage}
+              revealImage={heroImage}
               className="w-full h-full"
             />
           </div>
           <div className="h-64 rounded-2xl overflow-hidden shadow-xl">
             <InteractiveReveal
-              baseImage="https://images.pexels.com/photos/2294342/pexels-photo-2294342.jpeg?auto=compress&cs=tinysrgb&w=600&h=800"
-              revealImage="https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&w=600&h=800"
+              baseImage={revealImage}
+              revealImage={detailImage}
               className="w-full h-full"
             />
           </div>
           <div className="h-64 rounded-2xl overflow-hidden shadow-xl">
             <InteractiveReveal
-              baseImage="https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&w=600&h=800"
-              revealImage="https://images.pexels.com/photos/1055691/pexels-photo-1055691.jpeg?auto=compress&cs=tinysrgb&w=600&h=800"
+              baseImage={heroImage}
+              revealImage={detailImage}
               className="w-full h-full"
             />
           </div>

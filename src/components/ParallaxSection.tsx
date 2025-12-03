@@ -1,4 +1,4 @@
-import { useEffect, useState, ReactNode } from 'react';
+import { useEffect, useRef, ReactNode, CSSProperties } from 'react';
 
 interface ParallaxLayer {
   speed: number;
@@ -7,11 +7,14 @@ interface ParallaxLayer {
 }
 
 export function ParallaxLayer({ speed, children, className = '' }: ParallaxLayer) {
-  const [offset, setOffset] = useState(0);
+  const layerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      setOffset(window.scrollY * speed);
+      if (layerRef.current) {
+        const offset = window.scrollY * speed;
+        layerRef.current.style.transform = `translate3d(0, ${offset}px, 0)`;
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -20,9 +23,9 @@ export function ParallaxLayer({ speed, children, className = '' }: ParallaxLayer
 
   return (
     <div
+      ref={layerRef}
       className={`absolute inset-0 ${className}`}
       style={{
-        transform: `translate3d(0, ${offset}px, 0)`,
         willChange: 'transform',
       }}
     >
@@ -37,14 +40,17 @@ interface Parallax3DSectionProps {
 }
 
 export function Parallax3DSection({ className = '', children }: Parallax3DSectionProps) {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth - 0.5) * 40,
-        y: (e.clientY / window.innerHeight - 0.5) * 40,
-      });
+      if (!contentRef.current) return;
+
+      const x = (e.clientX / window.innerWidth - 0.5) * 40;
+      const y = (e.clientY / window.innerHeight - 0.5) * 40;
+
+      contentRef.current.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     };
 
     window.addEventListener('mousemove', handleMouseMove);
@@ -52,12 +58,16 @@ export function Parallax3DSection({ className = '', children }: Parallax3DSectio
   }, []);
 
   return (
-    <div className={`relative overflow-hidden ${className}`} style={{ perspective: '1000px' }}>
+    <div
+      ref={containerRef}
+      className={`relative overflow-hidden ${className}`}
+      style={{ perspective: '1000px' }}
+    >
       <div
+        ref={contentRef}
         style={{
-          transform: `translate3d(${mousePosition.x}px, ${mousePosition.y}px, 0)`,
           transition: 'transform 0.3s ease-out',
-        }}
+        } as CSSProperties}
       >
         {children}
       </div>
