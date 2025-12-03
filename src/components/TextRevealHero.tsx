@@ -49,7 +49,7 @@ export function TextRevealHero({ text, revealImage, className = '' }: TextReveal
       <div
         className="absolute inset-0 overflow-hidden pointer-events-none transition-[clip-path] duration-300 ease-out group-hover:duration-0"
         style={{
-          clipPath: 'circle(120px at var(--mouse-x) var(--mouse-y))',
+          clipPath: 'circle(250px at var(--mouse-x) var(--mouse-y))',
           opacity: 0,
         }}
       >
@@ -64,19 +64,13 @@ export function TextRevealHero({ text, revealImage, className = '' }: TextReveal
             backgroundImage: `url(${revealImage})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            WebkitBackgroundClip: 'text',
-            backgroundClip: 'text',
           }}
         >
           <h1
             className="text-9xl font-black tracking-tighter"
             style={{
-              WebkitTextFillColor: 'transparent',
-              backgroundImage: `url(${revealImage})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              WebkitBackgroundClip: 'text',
-              backgroundClip: 'text',
+              color: 'white',
+              textShadow: '0 4px 24px rgba(0,0,0,0.5)',
             }}
           >
             {text}

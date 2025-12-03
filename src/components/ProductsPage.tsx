@@ -4,23 +4,10 @@ interface ProductsPageProps {
   onProductClick?: (product: { name: string; price: number; image: string; category: string }) => void;
 }
 
-import heroImage from '../assets/images/hero.png';
-import revealImage from '../assets/images/reveal.png';
-import detailImage from '../assets/images/detail.png';
+import { products } from '../data/products';
 
 export function ProductsPage({ onProductClick }: ProductsPageProps) {
-  const allProducts = [
-    { name: 'Signature Hoodie', price: 299, image: heroImage, category: 'NEW' },
-    { name: 'Trench Coat', price: 499, image: revealImage, category: 'TRENDING' },
-    { name: 'Tailored Trousers', price: 249, image: detailImage, category: 'NEW' },
-    { name: 'Cotton Tee', price: 149, image: 'https://picsum.photos/400/600?random=04', category: 'CLASSIC' },
-    { name: 'Bomber Jacket', price: 399, image: 'https://picsum.photos/400/600?random=05', category: 'LIMITED' },
-    { name: 'Cashmere Sweater', price: 279, image: 'https://picsum.photos/400/600?random=06', category: 'NEW' },
-    { name: 'Wool Coat', price: 599, image: 'https://picsum.photos/400/600?random=07', category: 'PREMIUM' },
-    { name: 'Silk Blouse', price: 189, image: 'https://picsum.photos/400/600?random=08', category: 'NEW' },
-    { name: 'Denim Jacket', price: 329, image: 'https://picsum.photos/400/600?random=09', category: 'CLASSIC' },
-    { name: 'Leather Boots', price: 449, image: 'https://picsum.photos/400/600?random=10', category: 'LIMITED' },
-  ];
+  const allProducts = products;
 
   return (
     <section className="min-h-screen pt-24 pb-16 px-4 sm:px-6">
@@ -52,7 +39,14 @@ export function ProductsPage({ onProductClick }: ProductsPageProps) {
         {/* Products Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 mb-16">
           {allProducts.map((product, index) => (
-            <ProductCard key={index} {...product} onProductClick={onProductClick} />
+            <ProductCard
+              key={index}
+              name={product.name}
+              price={product.price}
+              image={product.image}
+              category={product.category}
+              onProductClick={onProductClick}
+            />
           ))}
         </div>
 
