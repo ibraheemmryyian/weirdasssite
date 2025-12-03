@@ -18,12 +18,16 @@ export function ScrollReveal3D({ children, className = '', delay = 0 }: ScrollRe
             setTimeout(() => {
               setIsVisible(true);
             }, delay);
+            // Stop observing once visible to save resources
+            if (elementRef.current) {
+              observer.unobserve(elementRef.current);
+            }
           }
         });
       },
       {
         threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px',
+        rootMargin: '0px 0px -50px 0px', // Reduced margin to trigger slightly earlier
       }
     );
 
@@ -32,9 +36,7 @@ export function ScrollReveal3D({ children, className = '', delay = 0 }: ScrollRe
     }
 
     return () => {
-      if (elementRef.current) {
-        observer.unobserve(elementRef.current);
-      }
+      observer.disconnect();
     };
   }, [delay]);
 
