@@ -9,7 +9,25 @@ interface CheckoutPageProps {
 
 export function CheckoutPage({ onPayment, onBack }: CheckoutPageProps) {
   const { state, getCartTotal } = useCart();
-  const [shippingInfo, setShippingInfo] = useState({
+  interface ShippingInfo {
+    firstName: string;
+    lastName: string;
+    email: string;
+    address: string;
+    city: string;
+    zipCode: string;
+    country: string;
+  }
+
+  interface BillingInfo {
+    sameAsShipping: boolean;
+    cardNumber: string;
+    expiryDate: string;
+    cvv: string;
+    nameOnCard: string;
+  }
+
+  const [shippingInfo, setShippingInfo] = useState<ShippingInfo>({
     firstName: '',
     lastName: '',
     email: '',
@@ -19,7 +37,7 @@ export function CheckoutPage({ onPayment, onBack }: CheckoutPageProps) {
     country: 'United States'
   });
 
-  const [billingInfo, setBillingInfo] = useState({
+  const [billingInfo, setBillingInfo] = useState<BillingInfo>({
     sameAsShipping: true,
     cardNumber: '',
     expiryDate: '',
@@ -31,11 +49,11 @@ export function CheckoutPage({ onPayment, onBack }: CheckoutPageProps) {
   const tax = (getCartTotal() * 0.08);
   const total = getCartTotal() + shipping + tax;
 
-  const handleShippingChange = (field: string, value: string) => {
+  const handleShippingChange = (field: keyof ShippingInfo, value: string) => {
     setShippingInfo(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleBillingChange = (field: string, value: string) => {
+  const handleBillingChange = (field: keyof BillingInfo, value: string | boolean) => {
     setBillingInfo(prev => ({ ...prev, [field]: value }));
   };
 
@@ -140,7 +158,7 @@ export function CheckoutPage({ onPayment, onBack }: CheckoutPageProps) {
                     type="checkbox"
                     id="sameAsShipping"
                     checked={billingInfo.sameAsShipping}
-                    onChange={(e) => handleBillingChange('sameAsShipping', e.target.checked.toString())}
+                    onChange={(e) => handleBillingChange('sameAsShipping', e.target.checked)}
                     className="w-4 h-4 text-gray-900 border-gray-300 rounded focus:ring-gray-900"
                   />
                   <label htmlFor="sameAsShipping" className="text-sm text-gray-700">

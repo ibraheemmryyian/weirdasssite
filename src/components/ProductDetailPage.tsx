@@ -83,11 +83,19 @@ export function ProductDetailPage({ product, onBack }: ProductDetailPageProps) {
   const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
   // Generate additional product images (variations)
+  // Generate additional product images (variations)
   const productImages = [
-    `https://picsum.photos/600/800?random=${product.image}`,
-    `https://picsum.photos/600/800?random=${product.image}1`,
-    `https://picsum.photos/600/800?random=${product.image}2`,
-    `https://picsum.photos/600/800?random=${product.image}3`
+    product.image,
+    // Use the same image for variations if it's a local asset, or generate random ones if it's a URL
+    product.image.startsWith('http')
+      ? `https://picsum.photos/600/800?random=${Math.random()}`
+      : product.image,
+    product.image.startsWith('http')
+      ? `https://picsum.photos/600/800?random=${Math.random()}`
+      : product.image,
+    product.image.startsWith('http')
+      ? `https://picsum.photos/600/800?random=${Math.random()}`
+      : product.image
   ];
 
   return (
@@ -121,11 +129,10 @@ export function ProductDetailPage({ product, onBack }: ProductDetailPageProps) {
                   key={index}
                   onClick={() => setSelectedImage(index)}
                   className={`aspect-square overflow-hidden rounded-lg border-2 transition-all duration-300 ease-out
-                           transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-gray-900/20 ${
-                    selectedImage === index
+                           transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-gray-900/20 ${selectedImage === index
                       ? 'border-gray-900 shadow-lg ring-2 ring-gray-900/20'
                       : 'border-gray-200 hover:border-gray-400 hover:shadow-md'
-                  }`}
+                    }`}
                 >
                   <img
                     src={image}
@@ -206,11 +213,10 @@ export function ProductDetailPage({ product, onBack }: ProductDetailPageProps) {
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
-                    className={`py-3 px-4 rounded-lg border-2 text-sm font-medium transition-all duration-200 ${
-                      selectedSize === size
+                    className={`py-3 px-4 rounded-lg border-2 text-sm font-medium transition-all duration-200 ${selectedSize === size
                         ? 'border-gray-900 bg-gray-900 text-white'
                         : 'border-gray-300 text-gray-700 hover:border-gray-400'
-                    }`}
+                      }`}
                   >
                     {size}
                   </button>
@@ -235,11 +241,10 @@ export function ProductDetailPage({ product, onBack }: ProductDetailPageProps) {
                 onClick={() => addToWishlist(product)}
                 className={`w-full py-3 px-6 rounded-xl border-2 font-semibold
                          flex items-center justify-center gap-3 transform transition-all duration-300
-                         focus:outline-none focus:ring-2 focus:ring-gray-900/20 touch-manipulation ${
-                  isInWishlist(product.name)
+                         focus:outline-none focus:ring-2 focus:ring-gray-900/20 touch-manipulation ${isInWishlist(product.name)
                     ? 'border-red-500 bg-red-50 text-red-700 hover:bg-red-100'
                     : 'border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50'
-                }`}
+                  }`}
               >
                 <Heart className={`w-5 h-5 ${isInWishlist(product.name) ? 'fill-current' : ''}`} />
                 <span>{isInWishlist(product.name) ? 'IN WISHLIST' : 'ADD TO WISHLIST'}</span>

@@ -52,11 +52,10 @@ export function ProductCard({ name, price, image, category, onProductClick }: Pr
           )}
 
           <img
-            src={`https://picsum.photos/400/600?random=${image}`}
+            src={image}
             alt={name}
-            className={`w-full h-full object-cover transform transition-all duration-700 ease-out group-hover:scale-110 ${
-              imageLoaded ? 'opacity-100' : 'opacity-0'
-            }`}
+            className={`w-full h-full object-cover transform transition-all duration-700 ease-out group-hover:scale-110 ${imageLoaded ? 'opacity-100' : 'opacity-0'
+              }`}
             loading="lazy"
             onLoad={() => setImageLoaded(true)}
           />
@@ -81,11 +80,10 @@ export function ProductCard({ name, price, image, category, onProductClick }: Pr
             }}
             className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full backdrop-blur-sm
                          flex items-center justify-center border transition-all duration-300
-                         hover:scale-110 focus:outline-none focus:ring-2 focus:ring-gray-900/20 ${
-              isInWishlist(name)
+                         hover:scale-110 focus:outline-none focus:ring-2 focus:ring-gray-900/20 ${isInWishlist(name)
                 ? 'bg-red-50 text-red-500 border-red-200'
                 : 'bg-white/90 text-gray-600 border-gray-200 group-hover:bg-red-50 group-hover:text-red-500'
-            }`}
+              }`}
           >
             <Heart className={`w-4 h-4 sm:w-5 sm:h-5 ${isInWishlist(name) ? 'fill-current' : ''}`} />
           </button>
@@ -125,11 +123,10 @@ export function ProductCard({ name, price, image, category, onProductClick }: Pr
                   onClick={() => setSelectedSize(size)}
                   className={`w-10 h-10 rounded-lg border-2 text-sm font-medium
                            transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-gray-900/20
-                           transform hover:scale-105 active:scale-95 ${
-                    selectedSize === size
+                           transform hover:scale-105 active:scale-95 ${selectedSize === size
                       ? 'border-gray-900 bg-gray-900 text-white shadow-lg'
                       : 'border-gray-300 text-gray-700 hover:border-gray-900 hover:bg-gray-900 hover:text-white hover:shadow-md'
-                  }`}
+                    }`}
                 >
                   {size}
                 </button>
@@ -156,11 +153,10 @@ export function ProductCard({ name, price, image, category, onProductClick }: Pr
                 e.stopPropagation();
                 addToWishlist(productData);
               }}
-              className={`p-2.5 rounded-lg border-2 transition-all duration-300 ${
-                isInWishlist(name)
+              className={`p-2.5 rounded-lg border-2 transition-all duration-300 ${isInWishlist(name)
                   ? 'border-red-500 bg-red-50 text-red-500'
                   : 'border-gray-300 text-gray-700 hover:border-red-500 hover:bg-red-50 hover:text-red-500'
-              }`}
+                }`}
             >
               <Heart className={`w-4 h-4 ${isInWishlist(name) ? 'fill-current' : ''}`} />
             </button>

@@ -89,7 +89,7 @@ export function CartPage({ onCheckout, onContinueShopping }: CartPageProps) {
                     {/* Product Image */}
                     <div className="w-24 h-24 bg-gray-100 rounded-xl overflow-hidden flex-shrink-0">
                       <img
-                        src={`https://picsum.photos/96/96?random=${item.image}`}
+                        src={item.image}
                         alt={item.name}
                         className="w-full h-full object-cover"
                       />

@@ -38,11 +38,10 @@ export function Navigation({ onNavigate, currentPage = 'home' }: NavigationProps
                 onClick={() => onNavigate?.('products')}
                 className={`transition-all duration-300 hover:scale-105 font-medium tracking-wide relative
                          after:absolute after:bottom-0 after:left-0 after:h-0.5
-                         after:bg-gray-900 after:transition-all after:duration-300 ${
-                  currentPage === 'products' || currentPage === 'product-detail'
+                         after:bg-gray-900 after:transition-all after:duration-300 ${currentPage === 'products' || currentPage === 'product-detail'
                     ? 'text-gray-900 after:w-full'
                     : 'text-gray-600 hover:text-gray-900 hover:after:w-full'
-                }`}
+                  }`}
               >
                 NEW
               </button>
@@ -50,11 +49,10 @@ export function Navigation({ onNavigate, currentPage = 'home' }: NavigationProps
                 onClick={() => onNavigate?.('products')}
                 className={`transition-all duration-300 hover:scale-105 font-medium tracking-wide relative
                          after:absolute after:bottom-0 after:left-0 after:h-0.5
-                         after:bg-gray-900 after:transition-all after:duration-300 ${
-                  currentPage === 'products' || currentPage === 'product-detail'
+                         after:bg-gray-900 after:transition-all after:duration-300 ${currentPage === 'products' || currentPage === 'product-detail'
                     ? 'text-gray-900 after:w-full'
                     : 'text-gray-600 hover:text-gray-900 hover:after:w-full'
-                }`}
+                  }`}
               >
                 COLLECTIONS
               </button>
@@ -62,11 +60,10 @@ export function Navigation({ onNavigate, currentPage = 'home' }: NavigationProps
                 onClick={() => onNavigate?.('about')}
                 className={`transition-all duration-300 hover:scale-105 font-medium tracking-wide relative
                          after:absolute after:bottom-0 after:left-0 after:h-0.5
-                         after:bg-gray-900 after:transition-all after:duration-300 ${
-                  currentPage === 'about'
+                         after:bg-gray-900 after:transition-all after:duration-300 ${currentPage === 'about'
                     ? 'text-gray-900 after:w-full'
                     : 'text-gray-600 hover:text-gray-900 hover:after:w-full'
-                }`}
+                  }`}
               >
                 ABOUT
               </button>
@@ -74,11 +71,10 @@ export function Navigation({ onNavigate, currentPage = 'home' }: NavigationProps
                 onClick={() => onNavigate?.('contact')}
                 className={`transition-all duration-300 hover:scale-105 font-medium tracking-wide relative
                          after:absolute after:bottom-0 after:left-0 after:h-0.5
-                         after:bg-gray-900 after:transition-all after:duration-300 ${
-                  currentPage === 'contact'
+                         after:bg-gray-900 after:transition-all after:duration-300 ${currentPage === 'contact'
                     ? 'text-gray-900 after:w-full'
                     : 'text-gray-600 hover:text-gray-900 hover:after:w-full'
-                }`}
+                  }`}
               >
                 CONTACT
               </button>
@@ -86,18 +82,25 @@ export function Navigation({ onNavigate, currentPage = 'home' }: NavigationProps
 
             {/* Desktop Icons */}
             <div className="hidden md:flex items-center gap-4">
-              <button className="p-2 text-gray-600 hover:text-gray-900 transition-all duration-300
-                               hover:scale-110 hover:rotate-12">
+              <button
+                className="p-2 text-gray-600 hover:text-gray-900 transition-all duration-300
+                               hover:scale-110 hover:rotate-12"
+                aria-label="Search"
+              >
                 <Search className="w-5 h-5" />
               </button>
-              <button className="p-2 text-gray-600 hover:text-gray-900 transition-all duration-300
-                               hover:scale-110">
+              <button
+                className="p-2 text-gray-600 hover:text-gray-900 transition-all duration-300
+                               hover:scale-110"
+                aria-label="User Account"
+              >
                 <User className="w-5 h-5" />
               </button>
               <button
                 onClick={() => onNavigate?.('cart')}
                 className="p-2 text-gray-600 hover:text-gray-900 transition-all duration-300
                          hover:scale-110 relative"
+                aria-label={`Shopping Cart (${getCartItemCount()} items)`}
               >
                 <ShoppingBag className="w-5 h-5" />
                 {getCartItemCount() > 0 && (
@@ -112,6 +115,7 @@ export function Navigation({ onNavigate, currentPage = 'home' }: NavigationProps
                 onClick={() => onNavigate?.('products')}
                 className="p-2 text-gray-600 hover:text-red-500 transition-all duration-300
                          hover:scale-110 relative"
+                aria-label={`Wishlist (${getWishlistCount()} items)`}
               >
                 <Heart className="w-5 h-5" />
                 {getWishlistCount() > 0 && (
@@ -128,6 +132,7 @@ export function Navigation({ onNavigate, currentPage = 'home' }: NavigationProps
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="md:hidden p-2 text-gray-600 hover:text-gray-900 transition-all duration-300"
+              aria-label={isOpen ? "Close Menu" : "Open Menu"}
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
