@@ -11,6 +11,10 @@ import { CartPage } from './components/CartPage';
 import { ContactPage } from './components/ContactPage';
 import { ProductDetailPage } from './components/ProductDetailPage';
 import { LookbookModal } from './components/LookbookModal';
+import { Interactive3DShowcase } from './components/Interactive3DShowcase';
+import { FeatureSection } from './components/FeatureSection';
+import { CheckoutPage } from './components/CheckoutPage';
+import { PaymentPage } from './components/PaymentPage';
 
 type Page = 'home' | 'about' | 'products' | 'contact' | 'cart' | 'product-detail' | 'checkout' | 'payment';
 
@@ -62,6 +66,7 @@ function AppContent() {
               onExploreCollection={handleExploreCollection}
               onWatchLookbook={handleWatchLookbook}
             />
+            <Interactive3DShowcase />
             <ProductShowcase
               onViewAllProducts={() => navigateTo('products')}
               onProductClick={handleProductClick}

@@ -1,4 +1,5 @@
 import { ProductCard } from './ProductCard';
+import { ScrollReveal3D } from './ScrollReveal3D';
 
 interface ProductShowcaseProps {
   onViewAllProducts?: () => void;
@@ -31,16 +32,9 @@ export function ProductShowcase({ onViewAllProducts, onProductClick }: ProductSh
         {/* Products Grid - Better mobile layout with stagger */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {products.map((product, index) => (
-            <div
-              key={index}
-              className="animate-[fadeIn_0.8s_ease-out_both] hover:animate-[slideIn_0.3s_ease-out]"
-              style={{
-                animationDelay: `${index * 0.15}s`,
-                animationFillMode: 'both'
-              }}
-            >
+            <ScrollReveal3D key={index} delay={index * 100}>
               <ProductCard {...product} onProductClick={onProductClick} />
-            </div>
+            </ScrollReveal3D>
           ))}
         </div>
 

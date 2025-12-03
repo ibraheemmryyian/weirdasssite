@@ -1,6 +1,7 @@
 import { ShoppingCart, Heart } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 import { useState } from 'react';
+import { Tilt3DCard } from './Tilt3DCard';
 
 interface ProductCardProps {
   name: string;
@@ -34,14 +35,12 @@ export function ProductCard({ name, price, image, category, onProductClick }: Pr
   };
 
   return (
-    <div className="group relative cursor-pointer">
+    <Tilt3DCard className="group relative cursor-pointer" intensity={10}>
       <div
         onClick={() => onProductClick?.(productData)}
-        className="relative overflow-hidden rounded-2xl bg-white border border-gray-200 transition-all duration-700
+        className="relative overflow-hidden rounded-2xl bg-white border border-gray-200 transition-all duration-500
                    hover:border-gray-300 hover:shadow-2xl
-                   transform hover:scale-[1.05] hover:-translate-y-4
-                   focus-within:border-gray-300 focus-within:shadow-2xl
-                   hover:rotate-1"
+                   focus-within:border-gray-300 focus-within:shadow-2xl"
       >
         {/* Product Image */}
         <div className="aspect-[4/5] sm:aspect-[3/4] overflow-hidden bg-gray-200 relative">
@@ -168,6 +167,6 @@ export function ProductCard({ name, price, image, category, onProductClick }: Pr
           </div>
         </div>
       </div>
-    </div>
+    </Tilt3DCard>
   );
 }

@@ -1,6 +1,9 @@
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { Button3D } from './Button3D';
 import { useEffect, useState } from 'react';
+import { AnimatedBackground } from './AnimatedBackground';
+import { MagneticButton } from './MagneticButton';
+import { Parallax3DSection } from './ParallaxSection';
 
 interface HeroSectionProps {
   onExploreCollection?: () => void;
@@ -17,7 +20,8 @@ export function HeroSection({ onExploreCollection, onWatchLookbook }: HeroSectio
   }, []);
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white px-4 sm:px-6">
-      {/* Subtle parallax background elements */}
+      <AnimatedBackground />
+
       <div
         className="absolute inset-0 opacity-5"
         style={{
@@ -29,14 +33,13 @@ export function HeroSection({ onExploreCollection, onWatchLookbook }: HeroSectio
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-gray-200 rounded-full blur-3xl"></div>
       </div>
 
-      {/* Mobile-optimized content with parallax */}
-      <div
-        className="relative z-10 max-w-7xl mx-auto w-full"
-        style={{
-          transform: `translateY(${scrollY * -0.05}px)`,
-          transition: 'transform 0.1s linear'
-        }}
-      >
+      <Parallax3DSection className="relative z-10 max-w-7xl mx-auto w-full">
+        <div
+          style={{
+            transform: `translateY(${scrollY * -0.05}px)`,
+            transition: 'transform 0.1s linear'
+          }}
+        >
         <div className="text-center">
           {/* Badge */}
           <div className="mb-4 sm:mb-6 inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full
@@ -65,28 +68,39 @@ export function HeroSection({ onExploreCollection, onWatchLookbook }: HeroSectio
           {/* CTA Buttons - Better mobile layout */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4
                         animate-[fadeIn_1s_ease-out_0.6s_both] px-4 sm:px-0">
-            <Button3D
-              variant="primary"
-              className="w-full sm:w-auto min-w-[200px] sm:min-w-0 group"
+            <MagneticButton
+              className="w-full sm:w-auto"
               onClick={onExploreCollection}
+              strength={0.4}
             >
-              <span className="group-hover:translate-x-0.5 transition-transform duration-300">
-                EXPLORE COLLECTION
-              </span>
-              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-0.5 transition-transform duration-300" />
-            </Button3D>
-            <Button3D
-              variant="ghost"
-              className="w-full sm:w-auto min-w-[200px] sm:min-w-0 group"
+              <Button3D
+                variant="primary"
+                className="w-full min-w-[200px] sm:min-w-0 group pointer-events-none"
+              >
+                <span className="group-hover:translate-x-0.5 transition-transform duration-300">
+                  EXPLORE COLLECTION
+                </span>
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-0.5 transition-transform duration-300" />
+              </Button3D>
+            </MagneticButton>
+            <MagneticButton
+              className="w-full sm:w-auto"
               onClick={onWatchLookbook}
+              strength={0.4}
             >
-              <span className="group-hover:scale-105 transition-transform duration-300">
-                WATCH LOOKBOOK
-              </span>
-            </Button3D>
+              <Button3D
+                variant="ghost"
+                className="w-full min-w-[200px] sm:min-w-0 group pointer-events-none"
+              >
+                <span className="group-hover:scale-105 transition-transform duration-300">
+                  WATCH LOOKBOOK
+                </span>
+              </Button3D>
+            </MagneticButton>
           </div>
         </div>
-      </div>
+        </div>
+      </Parallax3DSection>
 
       {/* Scroll indicator - Only show on larger screens */}
       <div className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 animate-bounce hidden sm:block">
