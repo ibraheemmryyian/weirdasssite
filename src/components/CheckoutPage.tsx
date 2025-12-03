@@ -205,7 +205,7 @@ export function CheckoutPage({ onPayment, onBack }: CheckoutPageProps) {
                 {state.items.map((item, index) => (
                   <div key={`${item.name}-${item.size}-${index}`} className="flex gap-4">
                     <img
-                      src={`https://picsum.photos/80/80?random=${item.image}`}
+                      src={item.image}
                       alt={item.name}
                       className="w-16 h-16 object-cover rounded-lg"
                     />
